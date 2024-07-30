@@ -53,6 +53,19 @@ function fillTable() {
         bodyRowElement.appendChild(createRowColumn(item.inn));
         bodyRowElement.appendChild(createRowColumn(item.address));
         bodyRowElement.appendChild(createRowColumn(item.kpp));
+
+        bodyRowElement.style.cursor = 'pointer';
+        bodyRowElement.addEventListener('dblclick', () => {
+        
+            // показываем попап с затемнением (почти как из фреймворка)
+            contentModal.querySelector("input[id='name']").value = item.name;
+            contentModal.querySelector("input[id='inn']").value =item.inn;
+            contentModal.querySelector("input[id='address']").value = item.address;
+            contentModal.querySelector("input[id='kpp']").value = item.kpp;
+            contentModal.querySelector("input[id='objectId']").value = item.id;
+            showModal();
+            showGlass(true);
+        })
         rowHead.innerHTML = item.name;
     
         tBodyElement.appendChild(bodyRowElement)
@@ -66,26 +79,58 @@ const addButton = rootElement.querySelector("button[id='add-button-container']")
 
 const modalRoot = rootElement.querySelector("div[id='default-modal']")
 const contentModal = modalRoot.querySelector("div[id='modal-body']");
+const glass = rootElement.querySelector("div[id='glass']");
 
 function resetModal() {
     const fields = contentModal.querySelectorAll("input");
     fields.forEach(field => field.value='');
 }
 
+const buttons = modalRoot.querySelectorAll('button');
+buttons.forEach(button => {
+    button.addEventListener('click', () => showGlass(false));
+});
+
+
+function showModal() {
+    modalRoot.removeAttribute('class');
+    modalRoot.setAttribute('class', 'overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full flex');
+}
+
+glass.addEventListener('click', () => showGlass(false));
+
+
+function showGlass(show) {
+    if (show) {
+        glass.removeAttribute('hidden');
+    } else {
+        console.log('here');
+        glass.setAttribute('hidden', true);
+    }
+}
 
 addButton.addEventListener("click", () => {
     resetModal();
+    showModal();
 });
 
 // кнопка submit
 const submit = modalRoot.querySelector("button[id='submit-form']");
 
 submit.addEventListener("click", () => {
-    const name = contentModal.querySelector("input[id='name'").value;
-    const inn = contentModal.querySelector("input[id='inn'").value;
-    const address = contentModal.querySelector("input[id='address'").value;
-    const kpp = contentModal.querySelector("input[id='kpp'").value;
+    const name = contentModal.querySelector("input[id='name']").value;
+    const inn = contentModal.querySelector("input[id='inn']").value;
+    const address = contentModal.querySelector("input[id='address']").value;
+    const kpp = contentModal.querySelector("input[id='kpp']").value;
 
-    currentData = currentData.concat({name, inn,address,kpp});
+    const id = contentModal.querySelector("input[id='objectId']").value;
+    // разделяем редактирование и создание
+    if (id) {
+        currentData[currentData.indexOf(currentData.find(row => row.id == id))] = {id: Number(id), name, inn, address, kpp};
+    } else {
+        const newId = Math.max(...currentData.map(s => s.id)) + 1;
+        currentData = currentData.concat({id: Number(newId), name, inn, address, kpp});
+    }
     fillTable();
 })
+
