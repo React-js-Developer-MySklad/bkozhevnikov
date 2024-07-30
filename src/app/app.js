@@ -9,7 +9,6 @@ rootElement.innerHTML = html;
 // в app.js создать массив с данными контрагентов
 let currentData = data;
 
-
 // реализовать отображение таблицы на основании массива данных. Колонки: наименование, ИНН, адрес, КПП, кнопка удалить.
 const tableRoot = rootElement.querySelector("div[role = 'table']");
 const templateHeadRow = rootElement.querySelector("template[id='template-head-column']")
@@ -18,7 +17,7 @@ const tBodyElement = tableRoot.querySelector('tbody');
 const headRowElement = document.createElement('tr');
 
 const tHeadElement = tableRoot.querySelector('thead');
-for(const column of ['Наименование', 'Инн', 'Адрес', 'КПП']) {
+for(const column of ['Наименование', 'Инн', 'Адрес', 'КПП', 'X']) {
     const columnElement = templateHeadRow.content.children[0].cloneNode(true);
     columnElement.innerHTML = column;
     headRowElement.appendChild(columnElement)
@@ -43,16 +42,27 @@ function fillTable() {
     for(const item of currentData) {
         const bodyRowElement = document.createElement('tr');
     
-        // add css class
         bodyRowElement.classList.add('dom-table-row')
     
         const rowHead = templateRowHead.content.children[0].cloneNode();
     
-        // bodyRowElement.appendChild(rowHead)
         bodyRowElement.appendChild(createRowColumn(item.name));
         bodyRowElement.appendChild(createRowColumn(item.inn));
         bodyRowElement.appendChild(createRowColumn(item.address));
         bodyRowElement.appendChild(createRowColumn(item.kpp));
+        
+        const deleteButton = document.createElement('button');
+        deleteButton.style.backgroundColor = 'red';
+        deleteButton.style.width = '30px';
+        deleteButton.style.height = '30px';
+
+        deleteButton.addEventListener('click', () => {
+            currentData = currentData.filter(row => !(row.id == item.id)) ;
+            fillTable();
+        });
+
+        bodyRowElement.append(deleteButton);
+
 
         bodyRowElement.style.cursor = 'pointer';
         bodyRowElement.addEventListener('dblclick', () => {
@@ -104,7 +114,6 @@ function showGlass(show) {
     if (show) {
         glass.removeAttribute('hidden');
     } else {
-        console.log('here');
         glass.setAttribute('hidden', true);
     }
 }
