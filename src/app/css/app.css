@@ -17,7 +17,6 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-
 }
 
 .add-button {
@@ -35,26 +34,6 @@
     font-size: 12px;
     font-weight: 500;
     line-height: 18px;
-}
-
-.status {
-    border-radius: 4px;
-    padding: 4px 10px;
-}
-
-.completed {
-    background-color: #DEF7EC;
-    color: #03543F;
-}
-
-.canceled {
-    background-color: #FDE8E8;
-    color: #9B1C1C;
-}
-
-.inprogress {
-    background-color: #EDEBFE;
-    color: #5521B5;
 }
 
 .footer-lognex {

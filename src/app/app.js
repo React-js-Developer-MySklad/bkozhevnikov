@@ -1,6 +1,6 @@
 import html from "./app.html";
-import './app.css'
-import './dom/dom.css'
+import './css/app.css'
+import './css/dom.css'
 import { data } from "./util/data";
 
 const rootElement = document.getElementById('root');
@@ -12,12 +12,13 @@ let currentData = data;
 // реализовать отображение таблицы на основании массива данных. Колонки: наименование, ИНН, адрес, КПП, кнопка удалить.
 const tableRoot = rootElement.querySelector("div[role = 'table']");
 const templateHeadRow = rootElement.querySelector("template[id='template-head-column']")
+const iconTemplate = rootElement.querySelector("template[id='delete-icon']")
 const tBodyElement = tableRoot.querySelector('tbody');
 
 const headRowElement = document.createElement('tr');
 
 const tHeadElement = tableRoot.querySelector('thead');
-for(const column of ['Наименование', 'Инн', 'Адрес', 'КПП', 'X']) {
+for (const column of ['Наименование', 'Инн', 'Адрес', 'КПП', '']) {
     const columnElement = templateHeadRow.content.children[0].cloneNode(true);
     columnElement.innerHTML = column;
     headRowElement.appendChild(columnElement)
@@ -50,18 +51,16 @@ function fillTable() {
         bodyRowElement.appendChild(createRowColumn(item.inn));
         bodyRowElement.appendChild(createRowColumn(item.address));
         bodyRowElement.appendChild(createRowColumn(item.kpp));
-        
-        const deleteButton = document.createElement('button');
-        deleteButton.style.backgroundColor = 'red';
-        deleteButton.style.width = '30px';
-        deleteButton.style.height = '30px';
 
+        const deleteButton = iconTemplate.content.children[0].cloneNode(true);
+        const deleteButtonContainer = templateRowColumn.content.children[0].cloneNode();
+        deleteButtonContainer.appendChild(deleteButton);
         deleteButton.addEventListener('click', () => {
             currentData = currentData.filter(row => !(row.id == item.id)) ;
             fillTable();
         });
 
-        bodyRowElement.append(deleteButton);
+        bodyRowElement.append(deleteButtonContainer);
 
 
         bodyRowElement.style.cursor = 'pointer';
