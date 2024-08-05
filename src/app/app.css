@@ -1,0 +1,24 @@
+.page {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    height: 100vh;
+    padding: 0 15px;
+
+    box-sizing: border-box;
+    max-width: 1000px;
+    margin-left: calc((100% - 1000px) / 2);
+    margin-right: calc((100% - 1000px) / 2);
+}
+
+@media (max-width: 1000px) {
+    .page {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+#footer {
+    margin-top: auto;
+}
