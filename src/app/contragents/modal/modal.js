@@ -32,7 +32,6 @@ export function showModal() {
 }
 
 glass.addEventListener('click', () => {
-    debugger;
     showGlass(false)}
 );
 
