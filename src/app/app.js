@@ -1,6 +1,6 @@
-import html from "./app.html";
-import './app.css'
+import "./app.css"
 
-
-const rootElement = document.getElementById('root');
-rootElement.innerHTML = html;
+import "./header/header";
+import "./footer/footer";
+import "./contragents/table/table";
+import "./contragents/modal/modal"
