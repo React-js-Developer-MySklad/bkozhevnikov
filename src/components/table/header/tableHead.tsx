@@ -11,9 +11,14 @@ export const TableHeadRow: React.FC<Prop> = ({tableConfiguration}) => {
     return (
         <thead className="dom-table-head">
             <tr>
-                {tableConfiguration.columnNames.map(data => {
-                    return <th scope="row" className="dom-table-row-head">{data}</th>;})
-                }
+                <th style={{width: '40px'}}></th>
+                {tableConfiguration.columnNames.map((data, index) => {
+                    return (
+                        <th key={index} scope="row" className="dom-table-row-head">
+                            <div className="header-label">{data}</div>
+                        </th>)
+                    }
+                )}
             </tr>
         </thead>
         

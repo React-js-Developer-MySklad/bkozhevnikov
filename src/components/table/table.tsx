@@ -7,21 +7,18 @@ import { TableMain } from "./main/tableMain";
 type Props = {
     tableConfiguration: TableConfiguration;
     data: Counterparty[];
+    onDelete: (c: Counterparty) => void;
 }
 
-export const Table: React.FC<Props> = ({tableConfiguration, data}) => {
+export const Table: React.FC<Props> = ({tableConfiguration, data, onDelete}) => {
     return (
         <div>
             <div className="dom-wrapper" role="table">
                 <table className="dom-table">
                     <TableHeadRow tableConfiguration={tableConfiguration}/>
-                    <TableMain tableConfiguration={tableConfiguration} dataCollection={data}/>
+                    <TableMain tableConfiguration={tableConfiguration} dataCollection={data} onDelete={onDelete}/>
                 </table>
             </div>
-
-           <template id="delete-icon">
-                {/* <img src="/src/app/assets/delete.svg"> */}
-            </template>
         </div>
     )
 }

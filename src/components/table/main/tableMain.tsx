@@ -5,13 +5,14 @@ import { TableRow } from "./row/tableRow";
 export type Props = {
     tableConfiguration: TableConfiguration;
     dataCollection: Counterparty[];
+    onDelete: (c: Counterparty) => void;
 }
 
 
-export const TableMain: React.FC<Props> = ({tableConfiguration, dataCollection}) => {
+export const TableMain: React.FC<Props> = ({tableConfiguration, dataCollection, onDelete}) => {
     return (
         <tbody>
-            {dataCollection.map(data => <TableRow data={data} tableConfiguration={tableConfiguration}/>)}
+            {dataCollection.map((data, index) => <TableRow key={index} data={data} tableConfiguration={tableConfiguration} onDelete={onDelete}/>)}
         </tbody>
     );
 }
