@@ -63,6 +63,7 @@ module.exports = {
                 include: [
                     path.resolve(__dirname, 'src')
                 ],
+                exclude: /\.module\.css$/,
                 use: [
                     'style-loader',
                     {
@@ -76,6 +77,19 @@ module.exports = {
                     },
                     'postcss-loader'
                 ],
+            },
+            {
+                test: /\.module\.css$/,
+                use: [
+                    'style-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: true
+                        }
+                    },
+                    'postcss-loader'
+                ]
             },
         ]
     },

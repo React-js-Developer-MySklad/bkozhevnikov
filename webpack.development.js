@@ -6,16 +6,6 @@ module.exports = merge(config, {
     module: {
         rules: [
             {
-                test: /\.css$/,
-
-                // https://webpack.js.org/loaders/style-loader/
-                // https://webpack.js.org/loaders/css-loader/
-                // https://webpack.js.org/loaders/postcss-loader/
-                // порядок имеет значение
-                use: [ 'style-loader', 'css-loader', 'postcss-loader' ],
-                exclude: /\.module\.css$/,
-            },
-            {
                 test: /\.module\.css$/,
                 use: [
                     'style-loader',
@@ -27,7 +17,7 @@ module.exports = merge(config, {
                     },
                     'postcss-loader'
                 ]
-            }
+            },
         ]
     }
 })

@@ -1,13 +1,9 @@
 import React, {useState} from "react";
-
+import './footer.css';
 
 
 export const Footer: React.FC = () => {
-
     return (
-        <div>
-            footer
-        </div>
-
+        <footer className="footer-lognex">© 2007–2024 ООО «Логнекс»</footer>
     )
 }
