@@ -10,6 +10,7 @@ export const App: React.FC = () => {
 
     const [configuration, setConfiguration] = useState<TableConfiguration>(defaultConfiguration);
     const [data, setData] = useState<Counterparty[]>(defaultData);
+    const [showModal, setShowModal] = useState<boolean>(false);
 
     const deleteCallback = useCallback((c: Counterparty) => {
         setData(prevValue => [...prevValue.filter(obj => obj !== c)]);
@@ -18,10 +19,12 @@ export const App: React.FC = () => {
     useState
     return (
         <div className="page">
-            <Header/>
+            <Header showModal={() => setShowModal(true)}/>
             <Table tableConfiguration={configuration} data={data} onDelete={deleteCallback}/>
             <Footer/>
-            <Modal/>            
+            <Modal show={showModal} hideModal={() => setShowModal(false)}>
+                <div>ЭТО КОНТЕНТ ПОПАПА</div>
+            </Modal>
         </div>
     )
 }
