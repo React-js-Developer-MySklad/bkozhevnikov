@@ -8,9 +8,10 @@ export type Props = {
     tableConfiguration: TableConfiguration;
     data: Counterparty;
     onDelete: (c: Counterparty) => void;
+    onClick: (c: Counterparty) => void;
 }
 
-export const TableRow: React.FC<Props> = ({tableConfiguration, data, onDelete}) => {
+export const TableRow: React.FC<Props> = ({tableConfiguration, data, onDelete, onClick}) => {
 
     const extractData = useCallback(() => {
         const names : string[] = tableConfiguration.columnNames;
@@ -19,7 +20,7 @@ export const TableRow: React.FC<Props> = ({tableConfiguration, data, onDelete}) 
 
 
     return (
-        <tr className="dom-table-row">
+        <tr className="dom-table-row" onDoubleClick={() => onClick(data)}>
             <td onClick={(event) => onDelete(data)}>
                 <DeleteImg/>
             </td>
