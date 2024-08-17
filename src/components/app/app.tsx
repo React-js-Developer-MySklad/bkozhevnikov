@@ -2,10 +2,9 @@ import React, { useCallback, useState } from "react";
 import { Header } from "../header/header";
 import { Table } from "../table/table";
 import { Footer } from "../footer/footer";
-import { Modal } from "../modal/modal";
 import { Counterparty, defaultConfiguration, defaultData, TableConfiguration } from "./../../util/classes";
 import "./app.css"
-import { ModalContent } from "../modal/content/content";
+import { CounterpartyModal } from "../modal/counterpartyModal";
 
 export const App: React.FC = () => {
 
@@ -15,7 +14,7 @@ export const App: React.FC = () => {
     const [counterpartyForModal, setCounterpartyForModal] = useState<Counterparty>(null);
 
     const deleteCallback = useCallback((c: Counterparty) => {
-        setData(prevValue => [...prevValue.filter(obj => obj !== c)]);
+        setData(prevValue => prevValue.filter(obj => obj !== c));
     }, []);
 
 
@@ -40,8 +39,6 @@ export const App: React.FC = () => {
         closeModalCallback();
     }, [data]);
 
-
-    useState
     return (
         <div className="page">
             <Header showModal={() => {
@@ -53,9 +50,12 @@ export const App: React.FC = () => {
                 setShowModal(true);
             }}/>
             <Footer/>
-            <Modal show={showModal} hideModal={() => setShowModal(false)}>
-                <ModalContent configuration={configuration} data={counterpartyForModal} onSave={saveCallback} onClose={closeModalCallback}/>
-            </Modal>
+            {showModal && <CounterpartyModal configuration={configuration} 
+                data={counterpartyForModal} 
+                onSave={saveCallback} 
+                onClose={closeModalCallback}
+                hideModal={() => setShowModal(false)}/>
+            }
         </div>
     )
 }

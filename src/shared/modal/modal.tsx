@@ -3,12 +3,11 @@ import './modal.css'
 import { createPortal } from "react-dom";
 
 type Props = {
-    show: boolean;
     hideModal: () => void;
     children: ReactNode;
 }
 
-export const Modal: React.FC<Props> = ({show, hideModal, children: content}) => {
+export const Modal: React.FC<Props> = ({hideModal, children: content}) => {
     const ref = useRef(null);
 
     // click вне
@@ -17,22 +16,15 @@ export const Modal: React.FC<Props> = ({show, hideModal, children: content}) => 
             if (ref.current && !ref.current.contains(event.target as HTMLElement)) {
                 hideModal();
             }
-          }
-        if (show) {
-            document.addEventListener("mousedown", handleClick);
-        } else {
-            document.removeEventListener("mousedown", handleClick);
         }
+        document.addEventListener("mousedown", handleClick);
         return () => {
             document.removeEventListener("mousedown", handleClick);
-          };
-    }, [show, hideModal])
+        };
+    }, [hideModal])
 
 
-    if (show) {
-        return createPortal(<div className="modal" ref={ref}>
-            {content}
-        </div>, document.body);
-    }
-    return null;
+    return createPortal(<div className="modal" ref={ref}>
+        {content}
+    </div>, document.body);
 }
