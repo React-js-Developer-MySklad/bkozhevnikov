@@ -1,0 +1,15 @@
+.modal {
+    position: absolute;
+    top: 0px;
+    box-sizing: content-box;
+    
+    border: 5px solid transparent;
+
+    left: calc(50vw - 300px);
+    top: calc(50vh - 200px);
+
+    width: 600px;
+    height: 400px;
+    z-index: 100;
+
+}
