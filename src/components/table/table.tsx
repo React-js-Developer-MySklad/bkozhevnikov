@@ -8,15 +8,16 @@ type Props = {
     tableConfiguration: TableConfiguration;
     data: Counterparty[];
     onClick: (c: Counterparty) => void;
+    reloadData: () => void;
 }
 
-export const Table: React.FC<Props> = ({ tableConfiguration, data, onClick }) => {
+export const Table: React.FC<Props> = ({ tableConfiguration, data, onClick, reloadData }) => {
     return (
         <div>
             <div className="dom-wrapper" role="table">
                 <table className="dom-table">
                     <TableHeadRow tableConfiguration={tableConfiguration} />
-                    <TableMain tableConfiguration={tableConfiguration} dataCollection={data} onClick={onClick} />
+                    <TableMain tableConfiguration={tableConfiguration} dataCollection={data} onClick={onClick} reloadData={reloadData} />
                 </table>
             </div>
         </div>

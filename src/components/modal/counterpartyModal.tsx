@@ -2,18 +2,19 @@ import React, { useContext, useEffect, useState } from "react"
 import { Counterparty, TableConfiguration } from "../../util/classes";
 import './counterpartyModal.css'
 import { Modal } from "../../shared/modal/modal";
-import { TableContext } from "../hooks/TableContext";
+import { CounterpartyApiContext } from "../hooks/CounterpartyApiContext";
 
 type Props = {
     configuration: TableConfiguration;
     data: Counterparty | null;
     onClose: () => void;
     hideModal: () => void;
+    reloadData: () => void;
 }
 
-export const CounterpartyModal: React.FC<Props> = ({ configuration, data, onClose, hideModal }) => {
+export const CounterpartyModal: React.FC<Props> = ({ configuration, data, onClose, hideModal, reloadData }) => {
 
-    const api = useContext(TableContext);
+    const api = useContext(CounterpartyApiContext);
 
     const [counterparty, setCounterparty] = useState<Counterparty>(data);
     useEffect(() => {
@@ -34,7 +35,19 @@ export const CounterpartyModal: React.FC<Props> = ({ configuration, data, onClos
                 }
             </div>
             <div className="buttons">
-                <button className="button" onClick={() => api.save(counterparty)}>Сохранить</button>
+                <button className="button" onClick={() => {
+                    if (counterparty.id) {
+                        api.edit(counterparty.id, counterparty).then(() => {
+                            reloadData()
+                            onClose();
+                        });
+                    } else {
+                        api.create(counterparty).then(() => {
+                            reloadData();
+                            onClose();
+                        });
+                    }
+                }}>Сохранить</button>
                 <button className="button" onClick={onClose}>Закрыть</button>
             </div>
         </div>
