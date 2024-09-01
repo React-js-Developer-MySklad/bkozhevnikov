@@ -36,7 +36,7 @@ type Props = {
     children: ReactNode;
 }
 
-export const CounterpartyApiProvider: React.FC<Props> = ({ children}) => {
+export const CounterpartyApiProvider: React.FC<Props> = ({ children }) => {
     return (
         <CounterpartyApiContext.Provider value={CounterpartyApiImpl} >
             {children}
