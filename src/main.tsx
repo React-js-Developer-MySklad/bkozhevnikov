@@ -1,13 +1,17 @@
 import './style.css'
-import {createRoot} from "react-dom/client";
-import {App} from "./components/app/app";
-import {StrictMode} from "react";
+import { createRoot } from "react-dom/client";
+import { App } from "./components/app/app";
+import { StrictMode } from "react";
+import { CounterpartyApiProvider } from './components/hooks/CounterpartyApiProvider';
 
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement)
 
 root.render(
     <StrictMode>
-        <App/>
+        <CounterpartyApiProvider>
+            <App />
+        </CounterpartyApiProvider>
+
     </StrictMode>
 );

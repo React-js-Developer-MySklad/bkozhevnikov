@@ -3,7 +3,10 @@
 ## Install dependencies
 ```npm install```
 ## Development Mode 
-```npm serve```
+```npm run serve```
 
 ## Build production 
-```npm build```
+```npm run build```
+
+## Для проверки локально
+```json-server --watch db.json --port 8000``` - для данных (init)
